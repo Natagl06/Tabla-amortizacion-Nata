@@ -52,26 +52,29 @@
             tabla.innerHTML = "";
 
             for (let i = 1; i <= cuotas; i++) {
-                let interes = saldo * tasa;
-                let capital = cuotaMensual - interes;
-                saldo -= capital;
+            let interes = saldo * tasa;
+            let capital = cuotaMensual - interes;
+            saldo -= capital;
 
-                let fila = tabla.insertRow();
-                fila.insertCell(0).innerText = i;
-                fila.insertCell(1).innerText = cuotaMensual.toFixed(2);
-                fila.insertCell(2).innerText = interes.toFixed(2);
-                fila.insertCell(3).innerText = capital.toFixed(2);
-                fila.insertCell(4).innerText = saldo.toFixed(2);
+            let fila = tabla.insertRow();
+            fila.insertCell(0).innerText = i;
+            fila.insertCell(1).innerText = cuotaMensual.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            fila.insertCell(2).innerText = interes.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            fila.insertCell(3).innerText = capital.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            fila.insertCell(4).innerText = saldo.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
+
+            // Agregar fila con mensaje al final de la tabla
+            let filaFinal = tabla.insertRow();
+            let celdaFinal = filaFinal.insertCell(0);
+            celdaFinal.colSpan = 5; // Que ocupe todas las columnas
+            celdaFinal.innerText = "Elaborado por Nataly Galvis Ledesma. Técnico profesional en sistemas de cómputo";
+            celdaFinal.style.textAlign = "center";
+            celdaFinal.style.fontWeight = "bold";
+
         }
     </script>
 
 </body>
 </html>
 
-git init
-git add .
-git commit -m "Subiendo código de la tabla de amortización"
-git branch -M main
-git remote add origin https://github.com/Natagl06/tabla-amortizacion.git
-git push -u origin main
