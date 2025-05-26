@@ -1,12 +1,25 @@
 <!DOCTYPE html>
+    <!-- Determino el idioma español -->
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <!-- Permite que se muestren todos los carácteres especiales -->
+    <meta charset="UTF-8"> 
+
+    <!-- Esto ajusta la visualización en dispositivos móviles -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Este es el título de la tabla-->
     <title>Tabla de Amortización</title>
+
+<!-- Aquí el 100% permite ocupar todo el espacio y el border-collapse junta los bordes de las celdas -->
+<!-- También determino el borde, el relleno y la alineación -->
+
     <style>
+        
         table {
-            width: 100%;
+            
+            width: 100%; 
             border-collapse: collapse;
         }
         th, td {
@@ -19,15 +32,28 @@
         }
     </style>
 </head>
-<body>
 
-    <h2>Calculadora de Tabla de Amortización</h2>
-    <label>Valor del préstamo: <input type="number" id="monto" value="."></label><br>
-    <label>Número de cuotas: <input type="number" id="cuotas" value="."></label><br>
-    <label>Tasa de interés mensual (%): <input type="number" id="tasa" value="."></label><br>
+
+<body>
+<!-- "</h2> indica que agregué un título" -->
+    <h2>Calculadora de Tabla de Amortización</h2> 
+
+    <!-- Son campos de entrada -->
+     <!-- input type="number" indica que se agregarán datos numéricos -->
+    <label>Valor del préstamo: <input type="number" id="monto" value=" "></label><br>
+    <label>Número de cuotas: <input type="number" id="cuotas" value=" "></label><br>
+    <label>Tasa de interés mensual (%): <input type="number" id="tasa" value=" "></label><br>
+   
+    <!-- Botón para generar tabla -->
     <button onclick="generarTabla()">Generar Tabla</button>
 
+
+ <!-- Inicia la tabla para mostrar los cálculos -->
+    
+    <!-- Defino la tabla como identificador único -->
     <table id="tabla">
+
+        <!-- Son los encabezados de las columnas -->
         <thead>
             <tr>
                 <th>N° Cuota</th>
@@ -51,20 +77,29 @@
             let tabla = document.getElementById("tabla").getElementsByTagName("tbody")[0];
             tabla.innerHTML = "";
 
+            /* Itera desde 1 hasta el número total de cuotas. */
+            /* Calcula los intereses y el capital de cada cuota.*/
+            /* Reduce el saldo restante.*/
             for (let i = 1; i <= cuotas; i++) {
             let interes = saldo * tasa;
             let capital = cuotaMensual - interes;
             saldo -= capital;
 
+            
+            /* InsertRow: Inserta una nueva fila a la tabla*/
             let fila = tabla.insertRow();
+
+            /*insertCel: Agrega datos en cada columba*/
             fila.insertCell(0).innerText = i;
             fila.insertCell(1).innerText = cuotaMensual.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             fila.insertCell(2).innerText = interes.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             fila.insertCell(3).innerText = capital.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            
+            /*toLocaleString: Muestra los valores con formato de moneda*/
             fila.insertCell(4).innerText = saldo.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             }
 
-            // Agregar fila con mensaje al final de la tabla
+            /*Agregar fila con mensaje al final de la tabla*/
             let filaFinal = tabla.insertRow();
             let celdaFinal = filaFinal.insertCell(0);
             celdaFinal.colSpan = 5; // Que ocupe todas las columnas
