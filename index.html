@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabla de Amortización</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #8ac6f7;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Calculadora de Tabla de Amortización</h2>
+    <label>Valor del préstamo: <input type="number" id="monto" value="."></label><br>
+    <label>Número de cuotas: <input type="number" id="cuotas" value="."></label><br>
+    <label>Tasa de interés mensual (%): <input type="number" id="tasa" value="."></label><br>
+    <button onclick="generarTabla()">Generar Tabla</button>
+
+    <table id="tabla">
+        <thead>
+            <tr>
+                <th>N° Cuota</th>
+                <th>Valor Total Cuota</th>
+                <th>Intereses</th>
+                <th>Capital</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <script>
+        function generarTabla() {
+            let monto = parseFloat(document.getElementById("monto").value);
+            let cuotas = parseInt(document.getElementById("cuotas").value);
+            let tasa = parseFloat(document.getElementById("tasa").value) / 100;
+            let cuotaMensual = (monto * tasa) / (1 - Math.pow(1 + tasa, -cuotas));
+            let saldo = monto;
+
+            let tabla = document.getElementById("tabla").getElementsByTagName("tbody")[0];
+            tabla.innerHTML = "";
+
+            for (let i = 1; i <= cuotas; i++) {
+                let interes = saldo * tasa;
+                let capital = cuotaMensual - interes;
+                saldo -= capital;
+
+                let fila = tabla.insertRow();
+                fila.insertCell(0).innerText = i;
+                fila.insertCell(1).innerText = cuotaMensual.toFixed(2);
+                fila.insertCell(2).innerText = interes.toFixed(2);
+                fila.insertCell(3).innerText = capital.toFixed(2);
+                fila.insertCell(4).innerText = saldo.toFixed(2);
+            }
+        }
+    </script>
+
+</body>
+</html>
+
+git init
+git add .
+git commit -m "Subiendo código de la tabla de amortización"
+git branch -M main
+git remote add origin https://github.com/Natagl06/tabla-amortizacion.git
+git push -u origin main
